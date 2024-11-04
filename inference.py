@@ -104,6 +104,9 @@ def run_inference(net, image_pil):
         adjusted_cp = np.array([y1, x1]) + cp
         contact_points.append(adjusted_cp)
         trajectories.append([x2, y2, dx, dy])
+
+        print('trajectories: ', trajectories)
+        print('trajs: ', trajs)
     
 
     original_img = np.asarray(image_pil)
