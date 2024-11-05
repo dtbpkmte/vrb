@@ -91,6 +91,8 @@ def run_inference(net, image_pil):
             ic, pc = net.inference(inp_img, None, None)
             pc = pc.cpu().numpy()
             ic = ic.cpu().numpy()
+            print('ic: ', ic)
+            print('pc: ', pc)
             i = 0
             w, h = input_img.shape[:2]
             sm = pc[i, 0]*np.array([h, w])
