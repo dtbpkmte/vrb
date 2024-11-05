@@ -61,7 +61,10 @@ def run_inference(net, image_pil):
 
     contact_points = []
     trajectories = []
-    for boxes in bboxes: 
+
+    trajectory_points = []
+
+    for boxes in bboxes:
         box = boxes[0]
         y1, x1, y2, x2 = box
         bbox_offset = 20
@@ -87,7 +90,7 @@ def run_inference(net, image_pil):
         centers = []
         trajs = []
         traj_scale = 0.1
-        with torch.no_grad(): 
+        with torch.no_grad():
             ic, pc = net.inference(inp_img, None, None)
             pc = pc.cpu().numpy()
             ic = ic.cpu().numpy()
@@ -107,9 +110,14 @@ def run_inference(net, image_pil):
         contact_points.append(adjusted_cp)
         trajectories.append([x2, y2, dx, dy])
 
+        trajectory_points.append(adjusted_cp)
+        for v in trajs:
+            trajectory_points.append(trajectory_points[-1] + v*np.array([h, w]))
+
         print('trajectories: ', trajectories)
         print('trajs: ', trajs)
-    
+
+    trajectory_points = np.vstack(trajectory_points)
 
     original_img = np.asarray(image_pil)
     hmap = compute_heatmap(np.vstack(contact_points), (original_img.shape[1],original_img.shape[0]), k_ratio = 6)
@@ -136,6 +144,8 @@ def run_inference(net, image_pil):
         scale = 60/max(abs(dx), abs(dy))
         x, y = cp[:, 0] , cp[:, 1]
         plt.arrow(int(np.mean(x)), int(np.mean(y)), scale*dx, -scale*dy, color='white', linewidth=2.5, head_width=12)
+
+        plt.scatter(trajectory_points[:, 0], trajectory_points[:, 1], color='cyan', s=10)
 
 
     plt.axis('off')
