@@ -110,12 +110,12 @@ def run_inference(net, image_pil):
         contact_points.append(adjusted_cp)
         trajectories.append([x2, y2, dx, dy])
 
-        trajectory_points.append(adjusted_cp)
-        for v in trajs:
-            trajectory_points.append(trajectory_points[-1] + v*np.array([h, w]))
-
         print('trajectories: ', trajectories)
         print('trajs: ', trajs)
+
+        trajectory_points.append(adjusted_cp)
+        for v in trajs[0]:
+            trajectory_points.append(trajectory_points[-1] + v*np.array([h, w]))
 
     trajectory_points = np.vstack(trajectory_points)
 
