@@ -116,8 +116,10 @@ def run_inference(net, image_pil):
         trajectory_points.append(adjusted_cp)
         print('trajectory_points: ', trajectory_points)
         for v in trajs[0]:
-            trajectory_points.append(trajectory_points[-1] + v*np.array([h, w]))
-            print('trajectory_points: ', trajectory_points)
+            tmp = trajectory_points[-1] + v*np.array([h, w])
+            trajectory_points.append(tmp)
+            print('tmp: ', trajectory_points)
+            exit()
 
     trajectory_points = np.vstack(trajectory_points)
     print('trajectory_points shape: ', trajectory_points.shape)
