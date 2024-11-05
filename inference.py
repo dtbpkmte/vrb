@@ -117,6 +117,14 @@ def run_inference(net, image_pil):
     hmap = cv2.applyColorMap(hmap, colormap=cv2.COLORMAP_JET)
     overlay = (0.6*original_img +  0.4 *hmap).astype(np.uint8)
     plt.imshow(overlay)
+
+    # Draw bounding boxes
+    for boxes in bboxes:
+        box = boxes[0]
+        y1, x1, y2, x2 = box
+        rect = plt.Rectangle((y1, x1), y2 - y1, x2 - x1, linewidth=2, edgecolor='yellow', facecolor='none')
+        plt.gca().add_patch(rect)
+
     for i, cp in enumerate(contact_points):
         # Draw trajs points
         print('x1 y1 point[0] point[1]')
