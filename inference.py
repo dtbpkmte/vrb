@@ -118,6 +118,7 @@ def run_inference(net, image_pil):
             trajectory_points.append(trajectory_points[-1] + v*np.array([h, w]))
 
     trajectory_points = np.vstack(trajectory_points)
+    print('trajectory_points shape: ', trajectory_points.shape)
 
     original_img = np.asarray(image_pil)
     hmap = compute_heatmap(np.vstack(contact_points), (original_img.shape[1],original_img.shape[0]), k_ratio = 6)
