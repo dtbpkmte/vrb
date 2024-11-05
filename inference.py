@@ -116,6 +116,10 @@ def run_inference(net, image_pil):
     overlay = (0.6*original_img +  0.4 *hmap).astype(np.uint8)
     plt.imshow(overlay)
     for i, cp in enumerate(contact_points):
+        # Draw trajs points
+        for point in trajs:
+            plt.scatter(point[1] + y1, point[0] + x1, color='cyan', s=10)
+
         x2, y2, dx, dy = trajectories[i]
         scale = 60/max(abs(dx), abs(dy))
         x, y = cp[:, 0] , cp[:, 1]
