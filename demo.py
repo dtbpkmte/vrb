@@ -41,7 +41,7 @@ def main(args):
     image_pil = Image.open(args.image).convert("RGB")
     image_pil = image_pil.resize((1008, 756))
     im_out = run_inference(net, image_pil)
-    im_out.save('kitchen_out7.png')
+    im_out.save('kitchen_out8.png')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
