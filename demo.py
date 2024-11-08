@@ -41,7 +41,7 @@ def main(args):
     image_pil = Image.open(args.image).convert("RGB")
     image_pil = image_pil.resize((1008, 756))
     im_out = run_inference(net, image_pil)
-    im_out.save('kitchen_out8.png')
+    im_out.save(args.out_image)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -59,6 +59,7 @@ if __name__ == "__main__":
     parser.add_argument("--manual_seed", default=0, type=int, help="manual seed")
     parser.add_argument('--image', type=str, default='./kitchen.jpeg')
     parser.add_argument('--model_path', type=str, default='./models/model_checkpoint_1249.pth.tar')
+    parser.add_argument('--out_image', type=str, default='./kitchen_out.jpeg')
     args = parser.parse_args()
     
 
